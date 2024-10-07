@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../static/css/admin_dashboard.css">
+    <title>Admin Dashboard</title>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <span>Admin Dashoard</span>
+        </div>
+        <a class="logout-button" href="{{ url_for('logout') }}">Logout</a>
+    </nav>
+    <h1>Performance Data</h1>
+    <table class="performance-table">
+        <thead>
+            <tr>
+                <th>Route</th>
+                <th>Method</th>
+                <th>Time Taken (seconds)</th>
+                <th>Memory Usage (MB)</th>
+                <th>Response Code</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for performance in perfomance_data %}
+                <tr>
+                    <td>{{ performance.route }}</td>
+                    <td>{{ performance.method }}</td>
+                    <td>{{ performance.time_taken }}</td>
+                    <td>{{ performance.memory_usage }}</td>
+                    <td>{{ performance.response_code }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>    
+    </div>
+</body>
+</html>

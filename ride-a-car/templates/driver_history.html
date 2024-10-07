@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Driver History</title>
+    <link rel="stylesheet" href="../static/css/history.css">
+</head>
+<body>
+    <nav class="navbar">
+        <a class="home-button" href="{{ url_for('driver_home') }}">Home</a>
+        <a class="logout-button" href="{{ url_for('logout') }}">Logout</a>
+    </nav>
+    <h1>Orders completed</h1>
+    <div class="order-cards">
+        {% for order in completed_orders %}
+        <div class="card">
+            <h2>Order {{ order['order number'] }}</h2>
+            <p>Order ID: {{order._id}}</p>
+            <p>Customer: {{ order.username }}</p>
+            <p>Departure: {{ order.departure_Ad}}</p>
+            <p>Destination: {{ order.destination_Ad }}</p>
+            <p>Time Created: {{ order.time_placed }}</p>
+            <p>Time Completed: {{ order.time_completed}}</p>
+            <p>Distance: {{ order.distance }}</p>
+            <p>Pay: {{ order.price }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

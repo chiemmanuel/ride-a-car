@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Final Project</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Your additional CSS files or styles -->
+    <link rel="stylesheet" href="/static/css/signup_login.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-6">
+                <h2 class="mb-4">Login</h2>
+                <!-- Flash messages -->
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <div class="alert alert-info">
+                            <ul class="mb-0">
+                                {% for message in messages %}
+                                    <li>{{ message }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+                {% endwith %}
+                <!-- End of flash messages -->
+                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link active" id="user-login-tab" data-toggle="pill" href="#user-login" role="tab"
+                            aria-controls="user-login" aria-selected="true">Login as User</a>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <a class="nav-link" id="driver-login-tab" data-toggle="pill" href="#driver-login" role="tab"
+                            aria-controls="driver-login" aria-selected="false">Login as Driver</a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-pane fade show active" id="user-login" role="tabpanel"
+                        aria-labelledby="user-login-tab">
+                        <form method="POST" action="">
+                            {{ user_form.hidden_tag() }}
+                            <div class="form-group">
+                                {{ user_form.email.label(class="form-control-label") }}
+                                {{ user_form.email(class="form-control") }}
+                            </div>
+                            <div class="form-group">
+                                {{ user_form.password.label(class="form-control-label") }}
+                                {{ user_form.password(class="form-control") }}
+                            </div>
+                            <button type="submit" name="user_submit" class="btn btn-primary">Login</button>
+                        </form>
+                        <a href="/signup" class="btn btn-link mt-3">Go back to Signup</a> <!-- Added link to go back to the signup page -->
+                    </div>
+                    <div class="tab-pane fade" id="driver-login" role="tabpanel" aria-labelledby="driver-login-tab">
+                        <form method="POST" action="">
+                            {{ driver_form.hidden_tag() }}
+                            <div class="form-group">
+                                {{ driver_form.operation_id.label(class="form-control-label") }}
+                                {{ driver_form.operation_id(class="form-control") }}
+                            </div>
+                            <div class="form-group">
+                                {{ driver_form.password.label(class="form-control-label") }}
+                                {{ driver_form.password(class="form-control") }}
+                            </div>
+                            <button type="submit" name="driver_submit" class="btn btn-primary">Login</button>
+                        </form>
+                        <a href="/signup" class="btn btn-link mt-3">Go back to Signup</a> <!-- Added link to go back to the signup page -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and other scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,190 @@
+/* Body styles */
+body {
+  font: 16px;
+  font-family: Georgia, serif;
+  background: #f3f5f6; /* Background color */
+}
+
+/* Autocomplete container */
+.autocomplete-container {
+  margin-bottom: 20px;
+}
+
+/* Input container styles */
+.input-container {
+  display: flex;
+  position: relative;
+}
+
+/* Input field styles */
+.input-container input {
+  flex: 1;
+  outline: none;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  padding-right: 31px;
+  font-size: 16px;
+}
+
+/* Autocomplete items styles */
+.autocomplete-items {
+  position: absolute;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 2px 10px 2px rgba(0, 0, 0, 0.1);
+  border-top: none;
+  background-color: #fff;
+  z-index: 99;
+  top: calc(100% + 2px);
+  left: 0;
+  right: 0;
+}
+
+.autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+}
+
+.autocomplete-items div:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.autocomplete-items .autocomplete-active {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+/* Clear button styles */
+.clear-button {
+  color: rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  position: absolute;
+  right: 5px;
+  top: 0;
+  height: 100%;
+  display: none;
+  align-items: center;
+}
+
+.clear-button.visible {
+  display: flex;
+}
+
+.clear-button:hover {
+  color: rgba(0, 0, 0, 0.6);
+}
+
+/* Additional input field styles */
+.input-container input {
+    margin-bottom: 10px;
+}
+
+/* Order form styles */
+#order-form {
+  display: none; /* Hide the form */
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 60%; /* Adjust width for the order form */
+  margin: 0 auto; /* Center the form horizontally */
+  margin-top: 50px; /* Adjust margin top for space below navbar */
+}
+
+/* Styles for responsive design */
+.input-group {
+    width: calc(75% - 20px); /* Adjust width for input fields */
+    float: left;
+    margin-right: 30px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+    .input-group {
+        width: 100%;
+        float: none;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    #order-form {
+        width: 80%;
+        float: none;
+    }
+}
+
+/* Navbar styles */
+.navbar {
+  display: flex;
+  justify-content: flex-end;
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.navbar-brand {
+  font-weight: bold;
+  margin-right: auto;
+  font-size: 20px;
+}
+
+/* Adjusted button styles */
+.logout-button {
+  background-color: #161618;
+  color: #fff;
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-left: 10px; /* Add margin to separate buttons */
+}
+
+.logout-button:hover {
+  background-color: #686666;
+}
+
+/* History button styles */
+.history-button {
+  background-color: #161618;
+  color: #fff;
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-left: 10px; /* Add margin to separate buttons */
+}
+
+.history-button:hover {
+  background-color: #686666;
+}
+
+/* Go button styles */
+.go-button {
+  background-color: #161618;
+  color: #fff;
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.go-button:hover {
+  background-color: #686666;
+}
+
+/* Updated input field styles */
+.input-group {
+    width: 45%;
+    float: left;
+    margin-right: 30px;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+    .input-group {
+        width: 100%;
+        float: none;
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+}

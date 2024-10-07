@@ -1,0 +1,68 @@
+/* Updated CSS to center the header and buttons */
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: Georgia, serif;
+    background-color: #f3f5f6;
+    height: 100%;
+}
+
+body {
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Navbar styles */
+.navbar {
+    display: flex;
+    justify-content: flex-end;
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 24px;
+    margin-right: auto;
+}
+
+/* Button styles */
+.signup-button,
+.login-button {
+    background-color: #161618;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 18px;
+}
+
+.signup-button:hover,
+.login-button:hover {
+    background-color: #686666;
+}
+
+/* Header styles */
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Updated car animation styles */
+@keyframes carAnimation {
+    0% { transform: translateX(-100px); }
+    100% { transform: translateX(calc(100vw + 100px)); }
+}
+
+.car {
+    position: absolute;
+    bottom: 20px; /* Adjust this value to position the car at the bottom */
+    left: -100px; /* Starting position off the left edge */
+    width: 300px; /* Adjust the car width */
+    height: auto; /* Maintain aspect ratio */
+    padding: auto; 
+    animation: carAnimation 10s linear infinite;
+    z-index: 1; /* Set a higher z-index to ensure the car is above the map */
+}

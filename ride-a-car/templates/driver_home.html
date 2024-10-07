@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Driver Home</title>
+    <link rel="stylesheet" href="../static/css/driver_home.css">
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js" integrity="sha384-mZLF4UVrpi/QTWPA7BjNPEnkIfRFn4ZEO3Qt/HFklTJBj/gBOV8G3HcKn4NfQblz" crossorigin="anonymous"></script>
+    <script>
+        // Define the socket object in the global scope
+        const socket = io('http://' + document.domain + ':' + location.port)
+        socket.on('connect', function() {
+            console.log('socket connected from driver side');
+        });
+        socket.on('order_placed', function(data) {
+            console.log('order placed event received from server side');
+            window.location.reload(); // Reload the page
+            
+        });
+        socket.on('order_cancelled', function(data) {
+            console.log('order cancelled event received from server side');
+            window.location.reload(); // Reload the page
+        });
+        // Define acceptOrder function in the global scope
+        function acceptOrder(orderID) {
+            // Make a POST request to the server to accept the order using the order ID
+            fetch('/accept_order/' + orderID, {
+                method: 'POST'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Order accepted successfully, handle UI changes or redirection here
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Order Accepted!',
+                        text: 'You have successfully accepted the order.'
+                    }).then(() => {
+                        var redirectUrl = '/ongoing_journey/' + orderID; // Adjust the route URL as per your Flask route structure
+                        window.location.href = redirectUrl; // Redirect to accepted order page
+                    });
+                } else {
+                    // Handle failure scenario
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Failed to accept the order. Please try again.'
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Handle error scenario
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'An error occurred while processing the order. Please try again.'
+                });
+            });
+        }
+    </script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <span>Driver Home</span>
+        </div>
+        <a class="history-button" href="{{ url_for('driver_history') }}">History</a>
+        <a class="logout-button" href="{{ url_for('logout') }}">Logout</a>
+    </nav>
+    <div id="map">{{ map|safe }}</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    
+</body>
+</html>

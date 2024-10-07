@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Invoice</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <style>
+        /* Reset default margin and padding */
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Base font styles */
+        body {
+            font-family: Georgia, serif;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        /* Navbar styles */
+        .navbar {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+        }
+
+        .navbar-brand {
+            font-size: 24px;
+            margin-right: auto;
+            font-weight: bold;
+        }
+
+        .home-button {
+            background-color: #161618;
+            color: #fff;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-left: 10px; /* Add space between the buttons */
+        }
+        .home-button:hover {
+            filter: brightness(85%);
+        }
+
+        /* Navbar links */
+        .fr-button,
+        .en-button {
+            color: #fff;
+            text-decoration: none;
+            margin: 0 5px;
+            padding: 8px 12px;
+            border-radius: 2px;
+        }
+
+        .fr-button:hover,
+        .en-button:hover {
+            background-color: #555;
+        }
+
+        /* Container styles */
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Order details styles */
+        .order-details {
+            margin-bottom: 20px;
+        }
+
+        .order-details h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .order-details p {
+            margin-bottom: 5px;
+        }
+
+        /* Rating container styles */
+        .rating-container {
+            margin-bottom: 20px;
+        }
+
+        .rating-container label {
+            font-weight: bold;
+            display: block;
+        }
+
+        .rating-container input[type="range"] {
+            width: 100%;
+        }
+
+        /* Submit button styles */
+        .submit-button input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .submit-button input[type="submit"]:hover {
+            background-color: #555;
+        }
+
+    </style>
+<script>
+    function rateDriver(event) {
+        event.preventDefault();
+
+        const ratingValue = document.querySelector('#rating').value;
+        const driver = "{{ order.driver }}"; // Assuming order ID is accessible in this context
+
+        Swal.fire({
+            icon: 'info',
+            title: 'Submitting Rating...',
+            text: 'Please wait while we process your rating.'
+        });
+
+        fetch(`/rate_driver/${driver}/${ratingValue}`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Rating Submitted!',
+                    text: 'Thank you for your rating.'
+                }).then(() => {
+                    var frButton = document.querySelector('.fr-button');
+                    var enButton = document.querySelector('.en-button');
+                    if (frButton) {
+                       frButton.style.display = 'none';
+                    }
+                    if (enButton) {
+                        enButton.style.display = 'none';
+                    }
+                    var ratingForm = document.querySelector('#ratingForm');
+                    if (ratingForm) {
+                        ratingForm.style.display = 'none';
+                    }
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Failed to submit the rating. Please try again.'
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'An error occurred while processing the rating. Please try again.'
+            });
+        });
+    }
+</script>       
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <span>User Invoice</span>
+        </div>
+        {% if lang == 'en' %}
+            <a class="home-button" href="{{ url_for('user_home') }}">Home</a>
+        {% else %}
+            <a class="home-button" href="{{ url_for('user_home') }}">Acceuil</a>
+        {% endif %}
+        <a class="fr-button inactive" href="{{ url_for('user_invoice', order_id=order._id, lang='fr') }}">FR</a>
+        <a class="en-button inactive" href="{{ url_for('user_invoice', order_id=order._id, lang='en') }}">EN</a>
+    </nav>
+    <div class="container">
+        <div class="order-details">
+            {% if lang == 'en' %}
+                <h2>Order Details</h2>
+                <p><strong>Driver:</strong> {{ order.driver }}</p>
+                <p><strong>Departure:</strong> {{ order.departure_Ad }}</p>
+                <p><strong>Destination:</strong> {{ order.destination_Ad }}</p>
+                <p><strong>Time placed:</strong> {{ order.time_placed }}</p>
+                <p><strong>Time Completed:</strong> {{ order.time_completed }}</p>
+                <p><strong>Distance:</strong> {{ order.distance }}</p>
+                <p><strong>Price:</strong> {{ order.price }}</p>
+            {% else %}
+                <h2>Détails de la Commande</h2>
+                <p><strong>Chauffeur :</strong> {{ order.driver }}</p>
+                <p><strong>Départ :</strong> {{ order.departure_Ad }}</p>
+                <p><strong>Destination :</strong> {{ order.destination_Ad }}</p>
+                <p><strong>Heure de Passation :</strong> {{ order.time_placed }}</p>
+                <p><strong>Heure Terminée :</strong> {{ order.time_completed }}</p>
+                <p><strong>Distance :</strong> {{ order.distance }}</p>
+                <p><strong>Prix :</strong> {{ order.price }}</p>
+            {% endif %}
+            <form id="ratingForm" onsubmit="rateDriver(event)">
+                <div class="rating-container">
+                    <label for="rating">
+                        {% if lang == 'en' %}
+                            Rate the Driver (1-5) :
+                        {% else %}
+                            Noter le Chauffeur (1-5) :
+                        {% endif %}
+                    </label>
+                    <input type="range" id="rating" name="rating" min="1" max="5" step="1">
+                </div>
+                <div class="submit-button">
+                    <input type="submit" value="{% if lang == 'en' %}Submit Rating{% else %}Noter{% endif %}">
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

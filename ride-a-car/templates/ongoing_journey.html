@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ongoing Journey</title>
+    <link rel="stylesheet" href="../static/css/driver_home.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script>
+        function completeOrder(orderID) {
+            Swal.fire({
+                icon: 'info',
+                title: 'Accepting Order...',
+                text: 'Please wait while we process your request.'
+            });
+            // Assuming '/accept_order' triggers a redirection without a specific response
+            fetch('/complete_order/' + orderID, {
+                method: 'POST'
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Order Completed!',
+                        text: 'You have successfully completed the order.'
+                    }).then(() => {
+                        var redirectUrl = '/driver_invoice/' + orderID; // Adjust the route URL as per your Flask route structure
+                        window.location.href = redirectUrl; // Redirect to accepted order page
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Failed to complete the order. Please try again.'
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'An error occurred while processing the order. Please try again.'
+                });
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="not_map">
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <span>Order {{order_id}}</span>
+        </div>
+        <button class="chat-button" onclick="window.location.href='/chat/{{order_id}}'">Chat with passenger</button>
+        <button class="complete-button" onclick="completeOrder('{{order_id}}')">Complete Order</button>
+    </nav>
+    </div>
+    <div id="map">{{ map|safe }}</div>
+</body>
+</html>

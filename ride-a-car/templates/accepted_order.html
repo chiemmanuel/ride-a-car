@@ -1,0 +1,93 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+.order-details {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+}
+
+.order-details h2 {
+    color: #007bff;
+}
+
+.order-details p {
+    margin: 5px 0;
+}
+
+.rating-container {
+    margin-bottom: 20px;
+}
+
+input[type="range"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 100%;
+    height: 20px;
+    border-radius: 5px;
+    background-color: #ccc;
+    outline: none;
+    margin-top: 10px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #007bff;
+    cursor: pointer;
+}
+
+.submit-button {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.submit-button input[type="submit"] {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>User Invoice</h1>
+<div class="order-details">
+    <h2>Order Details</h2>
+    <p><strong>Driver:</strong> {{ order.driver }}</p>
+    <p><strong>Departure:</strong> {{ order.departure_Ad }}</p>
+    <p><strong>Destination:</strong> {{ order.destination_Ad }}</p>
+    <p><strong>Time placed:</strong> {{ order.time_placed}}</p>
+    <p><strong>Time Completed:</strong> {{ order.time_completed }}</p>
+    <p><strong>Distance:</strong> {{ order.distance }}</p>
+    <p><strong>Price:</strong> {{ order.price }}</p>
+</div>

@@ -1,0 +1,55 @@
+/* Body styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Georgia, serif;/* Background color */
+    position: relative;
+}
+
+#map {
+    height: 400px; /* Adjust map height */
+    width: 100%; /* Map spans full width */
+    margin-top: 0px; /* Add space between the car animation and the map */ /* Set a lower z-index to ensure it's behind the car */
+}
+/* Navbar styles */
+.navbar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    margin-bottom: 0px;
+}
+
+.navbar-brand {
+    font-size: 24px;
+    margin-right: auto;
+    font-weight: bold;
+}
+
+/* Button styles */
+.chat-button,
+.complete-button,
+.history-button,
+.logout-button {
+    background-color: #161618;
+    color: #fff;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-left: 20px;
+    margin-right: 20px; /* Add space between the buttons */
+}
+
+.chat-button:hover,
+.complete-button:hover,
+.history-button:hover,
+.logout-button:hover {
+    filter: brightness(85%);
+}
+
+.logout-button {
+    margin-left: 0; /* Remove the left margin for logout button */
+    margin-right: 10px; /* Add space between the right of the buttons and the right edge of the navbar */
+}

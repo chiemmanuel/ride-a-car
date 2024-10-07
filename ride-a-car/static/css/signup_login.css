@@ -1,0 +1,65 @@
+
+
+    /* Change font family */
+    body {
+        font-family: Georgia, serif;
+    }
+
+    /* Center the form and increase its size */
+    .container {
+    margin-top: 50px;
+    }
+
+    .col-md-6 {
+    background-color: #f9f9f9;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Style the tabs */
+    .nav-pills .nav-link {
+    border-radius: 0;
+    font-weight: bold;
+    }
+
+    /* Style the form inputs and buttons */
+    .form-control {
+    margin-bottom: 20px;
+    font-size: 16px;
+    }
+
+    .btn-primary {
+    background-color: #2c58af;
+    border-color: #2653ae;
+    }
+
+    .btn-primary:hover {
+    background-color: #1e70b3;
+    border-color: #205b9d;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+    }
+
+    .fadeIn {
+    animation-name: fadeIn;
+    animation-duration: 1s;
+    }
+
+    /* Additional animations for specific elements */
+    #user-login {
+    animation-delay: 0.2s;
+    }
+
+    #driver-login {
+    animation-delay: 0.2s;
+    }

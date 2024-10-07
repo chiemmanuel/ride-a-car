@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Drivers Map</title>
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js" integrity="sha384-mZLF4UVrpi/QTWPA7BjNPEnkIfRFn4ZEO3Qt/HFklTJBj/gBOV8G3HcKn4NfQblz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <link rel="stylesheet" href="../static/css/wait_driver.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <span>Waiting For Driver</span>
+        </div>
+        <a  class="cancel-button">Cancel Order</a>
+        <div class="navbar-buttons" id="navbar-buttons">
+            
+        </div>
+    </nav>
+    <div id="map">{{ map|safe }}</div>
+    <script>
+        const cancelButton = document.querySelector('.cancel-button');
+
+        cancelButton.addEventListener('click', function(event) { 
+
+            // Show a confirmation dialog using SweetAlert2
+            Swal.fire({
+                icon: 'warning',
+                title: 'Cancel Order?',
+                text: 'Are you sure you want to cancel this order?',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, cancel it',
+                cancelButtonText: 'No, keep it'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // User confirmed the cancel action
+                    // Redirect to the cancel_order route
+                    window.location.href = '/cancel_order' ;
+                }
+            });
+        });
+
+        const socket = io('http://' + document.domain + ':' + location.port)
+        socket.on('connect', function() {
+            console.log('socket connected from client side');
+        });
+        
+        socket.on('order_completed', function(data) {
+            console.log('order_completed event received from server side');
+            var orderId = data.order_id;
+            if (typeof Swal === 'function'){
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Order Completed!',
+                    text: 'Driver successfully completed your order.'
+                }).then(() => {
+                    var navbarButtons = document.getElementById('navbar-buttons');
+                    var invoiceButton = document.createElement('div');
+                    invoiceButton.className = 'invoice-button';
+                    invoiceButton.textContent = 'Get Invoice';
+                    invoiceButton.onclick = function() {
+                        var redirectUrl = '/user_invoice/' + orderId + '/en'; // Adjust the route URL as per your Flask route structure
+                        // Redirect to the constructed URL
+                        window.location.href = redirectUrl;
+                    };
+
+                    if (!navbarButtons.querySelector('.invoice-button')) {
+                        navbarButtons.appendChild(invoiceButton);
+                    }
+                });
+            }
+        });
+
+        socket.on('order_accepted', function(data) {
+            console.log('order_accepted event received from server side');
+            var orderId = data.order_id;
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Order Accepted!',
+                text: 'Your order has been accepted.'
+            }).then(() => {
+                var cancelButton = document.querySelector('.cancel-button');
+                if (cancelButton) {
+                    cancelButton.style.display = 'none';
+                }
+                // Add a chat button to the navbar
+                var navbarButtons = document.getElementById('navbar-buttons');
+                var chatButton = document.createElement('div');
+                chatButton.className = 'chat-button';
+                chatButton.textContent = 'Chat';
+                chatButton.onclick = function() {
+                    var redirectUrl = '/chat/' + orderId; // Adjust the route URL as per your Flask route structure
+                    window.location.href = redirectUrl;
+                };
+
+                if (!navbarButtons.querySelector('.chat-button')) {
+                    navbarButtons.appendChild(chatButton);
+                }
+            });
+            // Redirect after 10 seconds (adjust the duration as needed)
+        });
+    </script>
+</body>
+</html>

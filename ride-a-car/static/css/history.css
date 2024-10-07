@@ -1,0 +1,62 @@
+/* CSS for history pages */
+body {
+    font-family: Georgia, serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    margin-bottom: 50px;
+}
+/* Adjusted button styles */
+
+.home-button,
+.logout-button {
+    background-color: #161618;
+    color: #fff;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 2px;
+    margin-left: 10px; /* Add space between the buttons */
+}
+
+.home-button:hover,
+.logout-button:hover {
+    filter: brightness(85%);
+}
+
+h1 {
+    text-align: center;
+}
+
+.order-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 300px;
+}
+
+.card h2 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.card p {
+    margin: 8px 0;
+}
+
+/* Additional styles can be added as needed */

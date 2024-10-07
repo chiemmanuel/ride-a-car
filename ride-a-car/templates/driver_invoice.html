@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Driver Invoice</title>
+    <style>
+        body {
+            font-family: Georgia, serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        .order-details {
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .order-details h2 {
+            color: #007bff;
+        }
+
+        .order-details p {
+            margin: 5px 0;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        /* Adjusted button styles */
+        .history-button,
+        .home-button,
+        .logout-button {
+            background-color: #161618;
+            color: #fff;
+            padding: 5px 10px;
+            text-decoration: none;
+            border-radius: 1px;
+            margin-left: 10px; /* Add space between the buttons */
+        }
+
+        .history-button:hover,
+        .home-button:hover,
+        .logout-button:hover {
+            filter: brightness(85%);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a class="history-button" href="{{ url_for('driver_history') }}">History</a>
+        <a class="home-button" href="{{ url_for('driver_home') }}">Home</a>
+        <a class="logout-button" href="{{ url_for('logout') }}">Logout</a>
+    </nav>
+    <div class="container">
+        <h1>Driver Invoice</h1>
+        <div class="order-details">
+            <h2>Order Details</h2>
+            <p><strong>Passenger:</strong> {{ order.username }}</p>
+            <p><strong>Departure:</strong> {{ order.departure_Ad }}</p>
+            <p><strong>Destination:</strong> {{ order.destination_Ad }}</p>
+            <p><strong>Time Completed:</strong> {{ order.time_completed }}</p>
+            <p><strong>Distance:</strong> {{ order.distance }}</p>
+            <p><strong>Your pay:</strong> {{ order.price }}</p>
+        </div>
+    </div>
+</body>
+</html>

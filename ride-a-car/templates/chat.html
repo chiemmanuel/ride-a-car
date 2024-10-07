@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat Interface</title>
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js" integrity="sha384-mZLF4UVrpi/QTWPA7BjNPEnkIfRFn4ZEO3Qt/HFklTJBj/gBOV8G3HcKn4NfQblz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <link rel="stylesheet" href="../static/css/chat.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <span>Chat room {{order._id}}</span>
+        </div>
+    </nav>
+    <div class="user-details">
+        <div class="user-box driver-box">
+            <h2>Driver</h2>
+            <p>{{order.driver}}</p>
+        </div>
+        <div class="user-box passenger-box">
+            <h2>Passenger</h2>
+            <p>{{order.username}}</p>
+        </div>
+    </div>
+    
+    <div class="chat-container">
+        <div class="chat-box">
+            <div id="chat-messages"></div>
+            <div class="input-container">
+                <input type="text" id="message-input" placeholder="Type your message...">
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+       const socket = io('http://' + document.domain + ':' + location.port)
+        socket.on('connect', function() {
+            console.log('socket connected from client side');
+        });
+        socket.on('order_completed', function(data) {
+            console.log('order_completed event received from server side');
+            var orderId = data.order_id;
+            if (typeof Swal === 'function'){
+            Swal.fire({
+                        icon: 'success',
+                        title: 'Order Completed!',
+                        text: 'Driver successfully completed your order.'
+                    }).then(() => {
+                            window.location.href= '/user_invoice/'+ orderId +'/' + 'en';
+                    });
+            }
+        });
+        // Function to send messages
+        function sendMessage() {
+            const messageInput = document.getElementById('message-input');
+            const message = messageInput.value;
+
+            // Emit the message to the server
+            socket.emit('chat_message', { message });
+            messageInput.value = ''; // Clear the input field after sending
+        }
+
+        // Function to display received messages
+        function displayMessage(data) {
+        const chatMessages = document.getElementById('chat-messages');
+        const { message, sender } = data;
+
+        // Create a div element to hold sender's name and message
+        const messageElement = document.createElement('div');
+
+        // Format the message with sender information
+        messageElement.innerHTML = `<strong>${sender}:</strong> ${message}`;
+        
+        chatMessages.appendChild(messageElement);
+        }
+
+    // Listen for incoming messages
+        socket.on('chat_message', (data) => {
+            displayMessage(data);
+        });
+    </script>
+</body>
+</html>
