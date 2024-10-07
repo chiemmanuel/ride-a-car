@@ -140,8 +140,3 @@ This application replicates the functionalities of a ride-hailing service like U
 - **Secure Communication:** Use secure Socket.IO settings and encryption for communication.
 - **Access Control:** Implement user roles and access control to restrict sensitive functionalities.
 
-## Extensibility
-
-- **API Documentation:** Document available APIs and endpoints for potential integration with external services.
-- **Customization:** Guide on extending functionalities or adding new features.
-- **Error Handling:** Document error codes, messages, and handling strategies.
